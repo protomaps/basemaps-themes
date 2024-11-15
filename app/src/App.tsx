@@ -1,35 +1,49 @@
-import { createSignal } from 'solid-js'
-import solidLogo from './assets/solid.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createSignal, createEffect, onMount } from "solid-js";
+import "maplibre-gl/dist/maplibre-gl.css";
+import "./App.css";
+import maplibregl from "maplibre-gl";
+import { layersWithCustomTheme } from "protomaps-themes-base";
+
+const THEMES = ["contrast"];
 
 function App() {
-  const [count, setCount] = createSignal(0)
+  let map: maplibregl.Map;
+
+  onMount(async () => {
+    maplibregl.setRTLTextPlugin(
+      "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
+      true,
+    );
+
+    let layers;
+
+    for (let themeName of THEMES) {
+      let theme = await import(`../../themes/${themeName}.ts`);
+      layers = layersWithCustomTheme("protomaps", theme.default, "en");
+    }
+
+    map = new maplibregl.Map({
+      container: "map",
+      style: {
+        version: 8,
+        glyphs:
+          "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+        sources: {
+          protomaps: {
+            type: "vector",
+            url: "https://api.protomaps.com/tiles/v4.json?key=5b9c1298c2eef269",
+          },
+        },
+        layers: layers,
+      },
+    });
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://solidjs.com" target="_blank">
-          <img src={solidLogo} class="logo solid" alt="Solid logo" />
-        </a>
-      </div>
-      <h1>Vite + Solid</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count()}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Solid logos to learn more
-      </p>
-    </>
-  )
+    <div id="container">
+      <div id="map"></div>
+    </div>
+  );
 }
 
-export default App
+export default App;

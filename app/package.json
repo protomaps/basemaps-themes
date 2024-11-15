@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "maplibre-gl": "^4.7.1",
+    "protomaps-themes-base": "^4.3.0",
     "solid-js": "^1.9.3"
   },
   "devDependencies": {
