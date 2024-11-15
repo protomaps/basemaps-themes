@@ -30,7 +30,7 @@ function App() {
         sources: {
           protomaps: {
             type: "vector",
-            url: "https://api.protomaps.com/tiles/v4.json?key=5b9c1298c2eef269",
+            url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
           },
         },
         layers: layers,
