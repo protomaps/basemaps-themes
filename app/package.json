@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-ghpages": "tsc -b && vite build --base=/basemaps-themes/",
   },
   "dependencies": {
     "maplibre-gl": "^4.7.1",
