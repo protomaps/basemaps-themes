@@ -1,3 +1,5 @@
+import { Theme } from "protomaps-themes-base";
+
 export default <Theme> {
   background: "#dddddd",
   earth: "#ededed",
