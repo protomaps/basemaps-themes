@@ -9,10 +9,10 @@ const THEMES = ["contrast", "bright"];
 
 const themeToLayers = new Map<string, Theme>();
 
-import contrast from "../../themes/contrast.ts";
+import contrast from "../themes/contrast.ts";
 themeToLayers.set("contrast", contrast);
 
-import bright from "../../themes/bright.ts";
+import bright from "../themes/bright.ts";
 themeToLayers.set("bright", bright);
 
 const getStyle = (index: number):StyleSpecification => {
