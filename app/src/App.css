@@ -9,7 +9,24 @@
   height: 100vh;
 }
 
+.sidebar {
+  width: 25%;
+  min-width: 250px;
+  padding: 10px;
+}
+
 #map {
   height: 100vh;
   width: 75%;
+}
+
+.themeRow {
+  border: 1px solid #111;
+  padding: .5rem;
+  margin-bottom: 1rem;
+}
+
+.themeRow:hover {
+  border: 1px solid #aaa;
+  cursor: pointer;
 }
