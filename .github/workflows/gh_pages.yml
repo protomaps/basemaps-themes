@@ -16,11 +16,10 @@ jobs:
         with:
           node-version: 20.x
       - run: npm ci && npm run build-ghpages
-        working-directory: app
       - name: build_app
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./app/dist
+          publish_dir: ./dist
           force_orphan: true
