@@ -5,7 +5,7 @@ import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
 import { Theme, layersWithCustomTheme } from "protomaps-themes-base";
 
-const THEMES = ["contrast", "bright", "calm", "black_and_white"];
+const THEMES = ["contrast", "bright", "calm", "black_and_white", "pink"];
 
 const themeToLayers = new Map<string, Theme>();
 
@@ -20,6 +20,9 @@ themeToLayers.set("calm", calm);
 
 import black_and_white from "../themes/black_and_white.ts";
 themeToLayers.set("black_and_white", black_and_white);
+
+import pink from "../themes/pink.ts";
+themeToLayers.set("pink", pink);
 
 const getStyle = (index: number):StyleSpecification => {
   let themeName = THEMES[index];
