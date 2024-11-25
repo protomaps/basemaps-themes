@@ -76,7 +76,7 @@ function App() {
 
     map = new maplibregl.Map({
       container: "map",
-      style: getStyle(selectedIndex()),
+      style: getStyle(selectedIndex(),showLabels()),
     });
   });
 
@@ -88,8 +88,9 @@ function App() {
     setSelectedIndex(i);
   }
 
-  const handleShowLabelsChange = (event) => {
-    setShowLabels(event.target.checked);
+  const handleShowLabelsChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    setShowLabels(target.checked);
   };
 
   console.log(showLabels());
