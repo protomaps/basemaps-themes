@@ -3,7 +3,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "./App.css";
 import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
-import { Theme, layersWithCustomTheme } from "protomaps-themes-base";
+import { Theme, layersWithCustomTheme, noLabelsWithCustomTheme } from "protomaps-themes-base";
 
 const THEMES = ["contrast", "bright", "calm", "black_and_white", "pink"];
 
@@ -24,13 +24,22 @@ themeToLayers.set("black_and_white", black_and_white);
 import pink from "../themes/pink.ts";
 themeToLayers.set("pink", pink);
 
-const getStyle = (index: number):StyleSpecification => {
+const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
   let themeName = THEMES[index];
-  let layers = layersWithCustomTheme(
-    "protomaps",
-    themeToLayers.get(themeName)!,
-    "en",
-  );
+  let layers;
+
+  if (showLabels) {
+    layers = layersWithCustomTheme(
+      "protomaps",
+      themeToLayers.get(themeName)!,
+      "en",
+    );
+  } else {
+    layers = noLabelsWithCustomTheme(
+      "protomaps",
+      themeToLayers.get(themeName)!,
+    );
+  }
   return {
     version: 8,
     glyphs:
@@ -57,6 +66,8 @@ function App() {
   let map: maplibregl.Map;
 
   const [selectedIndex, setSelectedIndex] = createSignal(0);
+  const [showLabels, setShowLabels] = createSignal(true);
+
   onMount(async () => {
     maplibregl.setRTLTextPlugin(
       "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.2.3/mapbox-gl-rtl-text.min.js",
@@ -70,17 +81,30 @@ function App() {
   });
 
   createEffect(() => {
-    map.setStyle(getStyle(selectedIndex()));
+    map.setStyle(getStyle(selectedIndex(),showLabels()));
   });
 
   const selectTheme = (i: number) => {
     setSelectedIndex(i);
   }
 
+  const handleShowLabelsChange = (event) => {
+    setShowLabels(event.target.checked);
+  };
+
+  console.log(showLabels());
+
   return (
     <div id="container">
       <div class="sidebar">
         <For each={THEMES}>{(themeName,i) => <div onClick={() => selectTheme(i())}><ThemeRow name={themeName} theme={themeToLayers.get(themeName)!}/></div>}</For>
+        <input
+          id="showLabels"
+          type="checkbox"
+          checked={showLabels()}
+          onChange={handleShowLabelsChange}
+        />
+        <label for="showLabels">Show labels</label>
       </div>
       <div id="map"></div>
     </div>
