@@ -5,27 +5,27 @@ import maplibregl from "maplibre-gl";
 import { StyleSpecification } from "maplibre-gl";
 import { Theme, layersWithCustomTheme, noLabelsWithCustomTheme } from "protomaps-themes-base";
 
-const THEMES = ["contrast", "bright", "calm", "black_and_white", "pink", "bold"];
+const THEMES = ["bio", "dusk_rose", "iris_bloom","rainforest", "seafoam"];
 
 const themeToLayers = new Map<string, Theme>();
 
-import contrast from "../themes/contrast.ts";
-themeToLayers.set("contrast", contrast);
+import bio from "../themes/bio.ts";
+themeToLayers.set("bio", bio);
 
-import bright from "../themes/bright.ts";
-themeToLayers.set("bright", bright);
+import iris_bloom from "../themes/iris_bloom.ts";
+themeToLayers.set("iris_bloom", iris_bloom);
 
-import calm from "../themes/calm.ts";
-themeToLayers.set("calm", calm);
+import seafoam from "../themes/seafoam.ts";
+themeToLayers.set("seafoam", seafoam);
 
-import black_and_white from "../themes/black_and_white.ts";
-themeToLayers.set("black_and_white", black_and_white);
+// import sol from "../themes/sol.ts";
+// themeToLayers.set("sol", sol);
 
-import pink from "../themes/pink.ts";
-themeToLayers.set("pink", pink);
+import dusk_rose from "../themes/dusk_rose.ts";
+themeToLayers.set("dusk_rose", dusk_rose);
 
-import bold from "../themes/bold.ts";
-themeToLayers.set("bold", bold);
+import rainforest from "../themes/rainforest.ts";
+themeToLayers.set("rainforest", rainforest);
 
 const getStyle = (index: number, showLabels: boolean):StyleSpecification => {
   let themeName = THEMES[index];
@@ -95,8 +95,6 @@ function App() {
     const target = event.target as HTMLInputElement;
     setShowLabels(target.checked);
   };
-
-  console.log(showLabels());
 
   return (
     <div id="container">
